@@ -1,8 +1,15 @@
 {
   "name": "web-screenshot-cli",
   "version": "0.1.0",
-  "main": "index.js",
   "repository": "https://github.com/brokenManager/web-screenshot-cli.git",
   "author": "Shuntaro Nishizawa <shun.shobon@gmail.com> (https://github.com/shun-shobon)",
-  "license": "MIT"
+  "license": "MIT",
+  "scripts": {
+    "start": "node lib/index.js",
+    "build": "tsc",
+    "watch": "tsc --watch"
+  },
+  "devDependencies": {
+    "typescript": "^3.8.3"
+  }
 }
