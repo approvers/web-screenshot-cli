@@ -9,9 +9,12 @@
     "build": "tsc",
     "watch": "tsc --watch",
     "lint": "eslint --ignore-path .gitignore '**/*.{ts,js}'",
-    "lint:fix": "yarn lint --fix"
+    "lint:fix": "yarn lint --fix",
+    "commitlint": "commitlint --from=master --to=HEAD"
   },
   "devDependencies": {
+    "@commitlint/cli": "^8.3.5",
+    "@commitlint/config-conventional": "^8.3.4",
     "@typescript-eslint/eslint-plugin": "^2.29.0",
     "@typescript-eslint/parser": "^2.29.0",
     "eslint": "^6.8.0",
