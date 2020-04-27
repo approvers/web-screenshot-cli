@@ -11,7 +11,7 @@
     "test": "jest",
     "lint": "eslint --ignore-path .gitignore '**/*.{ts,js}'",
     "lint:fix": "yarn lint --fix",
-    "commitlint": "commitlint --from=master --to=HEAD"
+    "commitlint": "commitlint -f HEAD"
   },
   "lint-staged": {
     "*.{ts,js}": "eslint --fix"
