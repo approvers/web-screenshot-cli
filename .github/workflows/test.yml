@@ -1,0 +1,46 @@
+name: test
+on: [push, pull_request]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node: [10.x, 11.x, 12.x, 13.x, 14.x]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Setup Node.js ${{ matrix.node }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node }}
+      - name: Restore cache
+        uses: actions/cache@v1
+        with:
+          path: ~/.cache/yarn
+          key: ${{ runner.os }}-${{ github.ref }}-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-${{ github.ref }}-
+            ${{ runner.os }}-
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
+
+      - name: Test
+        run: yarn test
+
+      - name: Coveralls
+        uses: coverallsapp/github-action@master
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          flag-name: node-${{ matrix.node }}
+          parallel: true
+
+  test-finish:
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Coveralls Finished
+        uses: coverallsapp/github-action@master
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          parallel-finished: true
